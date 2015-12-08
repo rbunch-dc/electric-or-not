@@ -4,22 +4,29 @@
 <body>
 
 <header>
-	<% include header %>
+<% include header %>
 </header>
+<main>
+	<h1><span class="green">Electric</span> or <span class="red">NOT?</span></h1>
+	<h2>A Node.js Voting Game</h2>
 
-<p>Here is the body!!</p>
-<% var printVar = "Print Me"; %>
+  	<div class="voting-image">
+  	    <img src="<%= photo.image %>" alt="Cat Picture" />
+  	</div>
 
-<%
-	for(i=0; i<photos.length;i++){
-%>
-		<img src="<%=photos[i].name %>">
-<%
-	}
-%>
+	<div class="button-holder">
+  	    <form class="vote-button" action="./electric" method="post">
+  	        <input type="hidden" name="photo" value="<%= photo.image %>" />
+  	        <input type="submit" class="btn btn-info" value="Electric!" />
+  	    </form>
+  	    <form class="vote-button" action="./poser" method="post">
+  	        <input type="hidden" name="photo" value="<%= photo.image %>" />
+  	        <input type="submit" class="btn btn-info" value="Poser" />
+  	    </form>
+  	</div>
+</main>
 <footer>
-	<% include footer %>
+<% include footer %>	
 </footer>
-
 </body>
 </html>

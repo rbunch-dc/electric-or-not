@@ -6,3 +6,24 @@ body {
 a {
   color: #00B7FF;
 }
+
+.button-holder{
+	width: 200px;
+	overflow: hidden;
+	margin: auto;
+	text-align: center;
+}
+
+.vote-button{
+	display: inline-block;
+	margin: 10px;
+}
+
+.voting-image{
+	max-width: 600px;
+	margin: auto;
+}
+
+.voting-image img{
+	width: 100%;
+}
