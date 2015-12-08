@@ -1,0 +1,25 @@
+
+<% include head %>
+
+<body>
+
+<header>
+	<% include header %>
+</header>
+
+<p>Here is the body!!</p>
+<% var printVar = "Print Me"; %>
+
+<%
+	for(i=0; i<photos.length;i++){
+%>
+		<img src="<%=photos[i].name %>">
+<%
+	}
+%>
+<footer>
+	<% include footer %>
+</footer>
+
+</body>
+</html>
