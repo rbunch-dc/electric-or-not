@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 			db.collection('photos').find({photo: {$nin: photosVoted}}).toArray(function(error, result){
 				var rand = Math.floor(Math.random() * result.length);
 				if(result.length == 0){
-					res.render('index', {photo: result[rand]});
+					res.render('standings', {awesomeProperty: "you've voted"});
 				}else{
 					res.render('index', {photo: result[rand]});
 				}
@@ -55,8 +55,10 @@ router.get('/standings', function(req, res, next) {
 router.post('*', function(req,res,next){
 	if(req.url == '/electric'){
 		var page = 'electric';
-	}else{
+	}else if(req.url == '/poser'){
 		var page = 'poser';
+	}else{
+		res.redirect('/');
 	}
 	MongoClient.connect(mongoUrl, function(error, db){
 		db.collection('photos').find({image: req.body.photo}).toArray(function(error, result){
@@ -70,7 +72,7 @@ router.post('*', function(req,res,next){
 			        $set: { "totalVotes": newVotes },
 			        $currentDate: { "lastModified": true }
 			      }, function(err, results) {
-			      // console.log(results);
+			      console.log(results);
 			      callback();
 			   });
 			};
