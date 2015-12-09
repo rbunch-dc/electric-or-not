@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
-
 var mongoUrl = 'mongodb://localhost:27017/electric';
+var db;
+
+	MongoClient.connect(mongoUrl, function(error, database){db = database;});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	MongoClient.connect(mongoUrl, function(error, db){
 		//1. Get all pictures from the MongoDB
 
 		var currIP = req.ip;
@@ -28,7 +29,6 @@ router.get('/', function(req, res, next) {
 
 			});
 		});	
-	});	
 
 });
 
