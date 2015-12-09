@@ -1,0 +1,27 @@
+
+<% include head %>
+
+<body>
+
+<header>
+<% include header %>
+</header>
+<main>
+	<ul>
+
+		<!-- for loop -->
+		<% for(i=0; i<photosStandings.length; i++){ %>
+			<li>
+				<img width="200" src="<%= photosStandings[i].image %>" alt="" />
+				<p class="up"><%= photosStandings[i].totalVotes %></p>
+			</li>
+		<% } %>
+		<!-- end for loop -->
+
+	</ul>
+</main>
+<footer>
+<% include footer %>	
+</footer>
+</body>
+</html>
