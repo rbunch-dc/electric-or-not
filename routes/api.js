@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var mongoUrl = 'mongodb://localhost:27017/electric';
-var db;
 var mongoose = require('mongoose');
-mongoose.connect(mongoUrl);
 var Photo = require('../models/photos');
 var Users = require('../models/users')
+
+var mongoUrl = 'mongodb://localhost:27017/electric';
+mongoose.connect(mongoUrl);
+var db;
+
 
 /* GET home page. */
 router.get('/photos/get', function (req, res, next) {
@@ -32,6 +34,23 @@ router.post('/photos/post', function (req,res,next){
 		}
 	})
 
+});
+
+router.put('/photos/update', function (req, res, next){
+	Photo.findById(req.params.photo_id, function (err, photoResult){
+		if(err){
+			console.log(err);
+		}else{
+			photoResult.image = req.params.photo; //Chagne teh propery of the object we got form Mongo
+			photoResult.save(function(err){
+				if(err){
+					console.log(err);
+				}else{
+					res.json({message: 'Photo was updated!'})
+				}
+			});
+		}
+	});
 });
 
 router.delete('/photos/delete', function (req, res, next){
