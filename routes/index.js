@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = 'mongodb://localhost:27017/electric';
 var db;
 
-	MongoClient.connect(mongoUrl, function(error, database){db = database;});
+MongoClient.connect(mongoUrl, function(error, database){db = database;});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
