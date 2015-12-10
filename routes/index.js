@@ -52,7 +52,49 @@ router.get('/standings', function(req, res, next) {
 	});
 });
 
-router.post('*', function(req,res,next){
+router.post('/electric', function(req,res,next){
+	if(req.url == '/electric'){
+		var page = 'electric';
+	}else if(req.url == '/poser'){
+		var page = 'poser';
+	}else{
+		res.redirect('/');
+	}
+	MongoClient.connect(mongoUrl, function(error, db){
+		db.collection('photos').find({image: req.body.photo}).toArray(function(error, result){
+			var updateVotes = function(db, votes, callback) {
+				if(page=='electric'){var newVotes = votes+1;}
+				else{var newVotes = votes-1;}
+				
+			   db.collection('photos').updateOne(
+			      { "image" : req.body.photo },
+			      {
+			        $set: { "totalVotes": newVotes },
+			        $currentDate: { "lastModified": true }
+			      }, function(err, results) {
+			      console.log(results);
+			      callback();
+			   });
+			};
+
+			MongoClient.connect(mongoUrl, function(error, db) {
+				updateVotes(db,result[0].totalVotes, function() {});
+			});
+		});
+	});	
+
+	MongoClient.connect(mongoUrl, function(error, db){
+
+		db.collection('users').insertOne( {
+	    	ip: req.ip,
+	    	vote: page,
+	    	image: req.body.photo
+		});
+		res.redirect('/');
+	});	
+});
+
+router.post('/poser', function(req,res,next){
 	if(req.url == '/electric'){
 		var page = 'electric';
 	}else if(req.url == '/poser'){
