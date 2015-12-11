@@ -3,8 +3,12 @@ var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = 'mongodb://localhost:27017/electric';
 var db;
+var mongoose = require('mongoose');
 
-MongoClient.connect(mongoUrl, function(error, database){db = database;});
+mongoose.connect(mongoUrl);
+MongoClient.connect(mongoUrl, function(error, database){
+	db = database;
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -37,7 +41,6 @@ router.get('/standings', function(req, res, next) {
 	//2. Sort them by highest likes
 	//3. res.render the standings view and pass it the sorted photo array 
 
-	MongoClient.connect(mongoUrl, function(error, db){
 		//1. Get all pictures from the MongoDB
 		db.collection('photos').find().toArray(function(error, result){
 			//Pass all votes
@@ -49,7 +52,6 @@ router.get('/standings', function(req, res, next) {
 			res.render('standings', {photosStandings: result});
 
 		});	
-	});
 });
 
 router.post('/electric', function(req,res,next){

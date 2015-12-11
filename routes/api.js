@@ -5,9 +5,8 @@ var Photo = require('../models/photos');
 var Users = require('../models/users')
 
 var mongoUrl = 'mongodb://localhost:27017/electric';
-mongoose.connect(mongoUrl);
-var db;
-
+// mongoose.connect(mongoUrl);
+db = mongoose.createConnection(mongoUrl);
 
 /* GET home page. */
 router.get('/photos/get', function (req, res, next) {
