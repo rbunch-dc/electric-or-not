@@ -1,7 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
-var mongoUrl = 'mongodb://localhost:27017/electric';
+// var mongoUrl = 'mongodb://localhost:27017/electric';
+ var mongoUrl =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost:27017/electric';
+
 var db;
 
 	MongoClient.connect(mongoUrl, function(error, database){db = database;});
