@@ -9,7 +9,9 @@ var MongoClient = require('mongodb').MongoClient;
 
 var db;
 
-	MongoClient.connect(mongoUrl, function(error, database){db = database;});
+	// MongoClient.connect(mongoUrl, function(error, database){db = database;});
+
+	var db = mongo.db(process.env.MONGOLAB_URI, {native_parser:true});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
